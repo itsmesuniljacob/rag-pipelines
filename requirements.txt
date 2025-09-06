@@ -3,6 +3,11 @@ langchain-core
 langchain-community
 pypdf
 pymupdf
+tqdm
+unstructured[xlsx]
+openpyxl
+networkx
 sentence-transformers
+torch
 faiss-cpu
 chromadb

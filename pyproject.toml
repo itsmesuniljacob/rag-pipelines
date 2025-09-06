@@ -1,0 +1,24 @@
+[project]
+name = "02-build-rag-pipeline"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "chromadb>=1.0.20",
+    "faiss-cpu>=1.12.0",
+    "ipykernel>=6.30.1",
+    "langchain>=0.3.27",
+    "langchain-community>=0.3.29",
+    "langchain-core>=0.3.75",
+    "networkx>=3.5",
+    "numpy<2.0",
+    "openpyxl>=3.1.5",
+    "pymupdf>=1.26.4",
+    "pypdf>=6.0.0",
+    "transformers>=4.21.0,<4.30.0",
+    "torch>=2.1.0,<2.2.0",
+    "tqdm>=4.67.1",
+    "unstructured[xlsx]>=0.18.14",
+    "sentence-transformers==2.2.2",
+]
