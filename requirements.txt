@@ -7,7 +7,8 @@ tqdm
 unstructured[xlsx]
 openpyxl
 networkx
-sentence-transformers
-torch
+sentence-transformers>=2.2.2
+torch>=1.9.0
 faiss-cpu
 chromadb
+huggingface_hub>=0.16.0,<0.26.0

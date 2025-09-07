@@ -21,4 +21,5 @@ dependencies = [
     "tqdm>=4.67.1",
     "unstructured[xlsx]>=0.18.14",
     "sentence-transformers==2.2.2",
+    "huggingface_hub>=0.16.0,<0.26.0",
 ]

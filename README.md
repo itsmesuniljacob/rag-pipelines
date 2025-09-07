@@ -4,9 +4,11 @@ A comprehensive RAG (Retrieval-Augmented Generation) pipeline project focused on
 
 ## 🚀 Features
 
-- **Document Loading**: Support for text files and directory-based loading
+- **Document Loading**: Support for text files, Excel files, and directory-based loading
 - **Metadata Management**: Rich metadata tracking for document sources
 - **LangChain Integration**: Built on LangChain for robust document processing
+- **Embedding Generation**: Sentence transformers for document embeddings
+- **Vector Database**: ChromaDB integration for similarity search
 - **Progress Tracking**: Visual progress indicators for bulk operations
 - **Jupyter Notebooks**: Interactive examples and tutorials
 
@@ -14,6 +16,8 @@ A comprehensive RAG (Retrieval-Augmented Generation) pipeline project focused on
 
 ```
 ├── data/                    # Sample documents and text files
+│   ├── excel/              # Excel files
+│   │   └── top_10_countries_population.xlsx
 │   ├── koh_samet.txt       # Travel guide content
 │   ├── machine_learning.txt # ML concepts content
 │   └── text_files/         # Additional text documents
@@ -22,14 +26,15 @@ A comprehensive RAG (Retrieval-Augmented Generation) pipeline project focused on
 ├── main.py                # Main application entry point
 ├── requirements.txt        # Python dependencies
 ├── pyproject.toml         # Project configuration
+├── uv.lock               # UV lock file for dependency management
 └── README.md              # This file
 ```
 
 ## 🛠️ Installation
 
 ### Prerequisites
-- Python 3.13 or higher
-- pip or uv package manager
+- Python 3.11 or higher
+- uv package manager (recommended) or pip
 
 ### Setup
 
@@ -48,7 +53,7 @@ A comprehensive RAG (Retrieval-Augmented Generation) pipeline project focused on
    
    Alternative with pip:
    ```bash
-   uv add -r requirements.txt
+   pip install -r requirements.txt
    ```
 
 3. **Verify installation**
@@ -83,6 +88,16 @@ loader = DirectoryLoader(
 documents = loader.load()
 ```
 
+### Excel File Loading
+
+```python
+from langchain_community.document_loaders import UnstructuredExcelLoader
+
+# Load Excel files
+loader = UnstructuredExcelLoader("data/excel/top_10_countries_population.xlsx")
+documents = loader.load()
+```
+
 ### Document with Metadata
 
 ```python
@@ -97,6 +112,25 @@ document = Document(
         "date": "2024-01-01"
     }
 )
+```
+
+### Embedding Generation
+
+```python
+from sentence_transformers import SentenceTransformer
+import numpy as np
+
+class EmbeddingManager:
+    def __init__(self, model_name: str = "all-MiniLM-L6-v2"):
+        self.model_name = model_name
+        self.model = SentenceTransformer(self.model_name)
+    
+    def generate_embeddings(self, documents: list[str]) -> np.ndarray:
+        return self.model.encode(documents, show_progress_bar=True)
+
+# Initialize and use
+embeddings_manager = EmbeddingManager()
+embeddings = embeddings_manager.generate_embeddings(["Document 1", "Document 2"])
 ```
 
 ## 🧪 Interactive Examples
@@ -118,9 +152,59 @@ The notebook includes:
 - **langchain**: Core LangChain framework
 - **langchain-core**: Core LangChain components
 - **langchain-community**: Community-contributed loaders
+- **sentence-transformers**: Text embedding generation
+- **torch**: PyTorch for deep learning models
+- **chromadb**: Vector database for similarity search
+- **faiss-cpu**: Fast similarity search library
 - **pypdf**: PDF processing capabilities
 - **pymupdf**: Advanced PDF handling
+- **unstructured[xlsx]**: Excel file processing
+- **openpyxl**: Excel file reading/writing
 - **tqdm**: Progress bars for long operations
+
+### Version Compatibility
+
+This project uses specific version constraints to ensure compatibility:
+- `sentence-transformers==2.2.2`
+- `huggingface_hub>=0.16.0,<0.26.0` (compatible with sentence-transformers)
+- `torch>=2.1.0,<2.2.0`
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+#### `cached_download` Import Error
+If you encounter the error:
+```
+ImportError: cannot import name 'cached_download' from 'huggingface_hub'
+```
+
+**Solution**: This is fixed by using compatible versions. Ensure you're using:
+- `huggingface_hub>=0.16.0,<0.26.0`
+- `sentence-transformers==2.2.2`
+
+Run `uv sync` to install the correct versions.
+
+#### Jupyter Kernel Issues
+If imports work in terminal but not in Jupyter:
+
+1. **Restart the Jupyter kernel**: `Kernel` → `Restart Kernel`
+2. **Clear output**: `Kernel` → `Restart & Clear Output`
+3. **Re-run the import cells**
+
+#### PyTorch Installation Issues
+If you get PyTorch-related errors:
+
+```bash
+# Reinstall PyTorch
+uv sync --reinstall
+```
+
+### Getting Help
+
+- Check the [Issues](https://github.com/your-repo/issues) page
+- Review the Jupyter notebook examples
+- Ensure all dependencies are correctly installed with `uv sync`
 
 ## 🤝 Contributing
 
