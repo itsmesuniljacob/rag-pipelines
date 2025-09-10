@@ -17,9 +17,10 @@ dependencies = [
     "pymupdf>=1.26.4",
     "pypdf>=6.0.0",
     "transformers>=4.21.0,<4.30.0",
-    "torch>=2.1.0,<2.2.0",
+    "torch>=1.9.0",
     "tqdm>=4.67.1",
     "unstructured[xlsx]>=0.18.14",
-    "sentence-transformers==2.2.2",
-    "huggingface_hub>=0.16.0,<0.26.0",
+    "sentence-transformers>=2.2.2",
+    "huggingface-hub>=0.16.0,<0.26.0",
+    "langchain-groq>=0.3.8",
 ]
