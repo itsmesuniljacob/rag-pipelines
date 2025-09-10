@@ -2,6 +2,29 @@
 
 A comprehensive RAG (Retrieval-Augmented Generation) pipeline project focused on data ingestion using LangChain. This project demonstrates how to load and process various document types for building knowledge bases.
 
+## 🧭 Overview
+
+This project implements the data ingestion and retrieval backbone of a Retrieval-Augmented Generation pipeline. It loads heterogeneous documents (text, PDF, Excel), enriches them with metadata, chunks content, generates embeddings using sentence-transformers, and persists them into a vector store (Chroma). At query time, it retrieves the most relevant chunks to ground LLM responses with factual context.
+
+## 🗺️ Architecture
+
+```mermaid
+flowchart TD
+    A[Data Sources\nText, PDFs, Excel] --> B[Document Loaders\nLangChain]
+    B --> C[Preprocessing\nChunking + Metadata]
+    C --> D[Embeddings\nSentence-Transformers]
+    D --> E[Vector Store\nChromaDB]
+    E --> F[Retriever\nSimilarity Search]
+    F --> G[LLM\nAugmented Answer]
+
+    %% Optional feedback loop for improvements
+    G -. optional store signals .-> E
+
+    subgraph Storage
+      E
+    end
+```
+
 ## 🚀 Features
 
 - **Document Loading**: Support for text files, Excel files, and directory-based loading
